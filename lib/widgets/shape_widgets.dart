@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'dart:math';
 
-class RoundWidget extends StatelessWidget {
+class RoundShape extends StatelessWidget {
   final Color color;
   final Size size;
 
-  const RoundWidget({
+  const RoundShape({
     super.key,
     required this.color,
     required this.size,
@@ -23,11 +24,11 @@ class RoundWidget extends StatelessWidget {
   }
 }
 
-class WeirdShapeWidget extends StatelessWidget {
+class WeirdShape extends StatelessWidget {
   final Color color;
   final Size size;
 
-  const WeirdShapeWidget({
+  const WeirdShape({
     super.key,
     required this.color,
     required this.size
@@ -73,11 +74,11 @@ class CustomWeirdShapePainter extends CustomPainter {
   bool shouldRepaint(CustomPainter oldDelegate) => false;
 }
 
-class TriangleWidget extends StatelessWidget {
+class TriangleShape extends StatelessWidget {
   final Color color;
   final Size size;
 
-  const TriangleWidget({
+  const TriangleShape({
     super.key,
     required this.color,
     required this.size
@@ -89,26 +90,25 @@ class TriangleWidget extends StatelessWidget {
     return CustomPaint(
       size: size,
       painter: TrianglePainter(
-        strokeColor: color
+        color: color
       ),
     );
   }
 }
 
 class TrianglePainter extends CustomPainter {
-  final Color strokeColor;
-  final PaintingStyle paintingStyle;
+  final Color color;
   final double strokeWidth;
 
-  TrianglePainter({this.strokeColor = Colors.black, this.strokeWidth = 3, this.paintingStyle = PaintingStyle.fill});
+  TrianglePainter({this.color = Colors.black, this.strokeWidth = 3});
 
   @override
   void paint(Canvas canvas, Size size) {
     Paint paint = Paint()
-      ..color = strokeColor
+      ..color = color
       ..strokeWidth = strokeWidth
       ..strokeJoin = StrokeJoin.round
-      ..style = paintingStyle;
+      ..style = PaintingStyle.fill;
 
     Path path = getTrianglePath(size.width, size.height);
     canvas.drawPath(path, paint);
@@ -127,8 +127,116 @@ class TrianglePainter extends CustomPainter {
 
   @override
   bool shouldRepaint(TrianglePainter oldDelegate) {
-    return oldDelegate.strokeColor != strokeColor ||
-        oldDelegate.paintingStyle != paintingStyle ||
-        oldDelegate.strokeWidth != strokeWidth;
+    return oldDelegate.color != color || oldDelegate.strokeWidth != strokeWidth;
   }
+}
+
+class StarShape extends StatelessWidget {
+  final Color color;
+  final Size size;
+
+  const StarShape({
+    super.key,
+    required this.color,
+    required this.size
+  });
+
+  @override
+  Widget build(BuildContext context) {
+
+    return CustomPaint(
+      size: size,
+      painter: StarPainter(
+          color: color
+      ),
+    );
+  }
+}
+
+class StarPainter extends CustomPainter {
+  final Color color;
+
+  const StarPainter({
+    required this.color,
+  });
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    Paint paint = Paint()
+      ..color = color
+      ..style = PaintingStyle.fill;
+
+    Path path = createStarPath(size.width / 2, size.height / 2, 5, size.width / 2, size.width / 4);
+    canvas.drawPath(path, paint);
+  }
+
+  Path createStarPath(double cx, double cy, int points, double outerRadius, double innerRadius) {
+    Path path = Path();
+    double angle = pi / points;
+
+    for (int i = 0; i < points * 2; i++) {
+      double r = (i % 2 == 0) ? outerRadius : innerRadius;
+      double x = cx + r * cos(i * angle - pi / 2);
+      double y = cy + r * sin(i * angle - pi / 2);
+
+      if (i == 0) {
+        path.moveTo(x, y);
+      } else {
+        path.lineTo(x, y);
+      }
+    }
+    path.close();
+    return path;
+  }
+
+  @override
+  bool shouldRepaint(CustomPainter oldDelegate) => false;
+}
+
+class DiamondShape extends StatelessWidget {
+
+  final Color color;
+  final Size size;
+
+  const DiamondShape({
+    super.key,
+    required this.color,
+    required this.size
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return CustomPaint(
+      size: size, // Adjust size as needed
+      painter: DiamondPainter(color: color),
+    );
+  }
+}
+
+class DiamondPainter extends CustomPainter {
+
+  final Color color;
+
+  const DiamondPainter({
+    required this.color,
+  });
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    Paint paint = Paint()
+      ..color = color
+      ..style = PaintingStyle.fill;
+
+    Path path = Path();
+    path.moveTo(size.width / 2, 0);
+    path.lineTo(size.width, size.height / 2);
+    path.lineTo(size.width / 2, size.height);
+    path.lineTo(0, size.height / 2);
+    path.close();
+
+    canvas.drawPath(path, paint);
+  }
+
+  @override
+  bool shouldRepaint(CustomPainter oldDelegate) => false;
 }

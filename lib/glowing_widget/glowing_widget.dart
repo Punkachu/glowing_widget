@@ -4,9 +4,6 @@ import 'package:flutter/material.dart';
 import 'drop_shadow.dart';
 
 
-const Offset small = Offset(230, 230);
-const Offset large = Offset(500, 230);
-
 class GlowingWidget extends StatefulWidget {
   final Widget child;
   final Offset size;

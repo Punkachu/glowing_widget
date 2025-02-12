@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:glowing_widget/widgets/shape_widgets.dart';
 import 'package:storybook_flutter/storybook_flutter.dart';
-import 'glowing_widget.dart';
+import 'glowing_widget/glowing_widget.dart';
 
 
 class StoryBookApp extends StatelessWidget {
@@ -25,44 +25,52 @@ class StoryBookApp extends StatelessWidget {
       builder: (BuildContext context) {
         // Using sliders to define RGB values for two gradient colors
         final alpha1 = context.knobs.slider(label: "Color Alpha", initial: 255, min: 0, max: 255);
-        final red1 = context.knobs.slider(label: "Color Red", initial: 0, min: 0, max: 255);
-        final green1 = context.knobs.slider(label: "Color Green", initial: 0, min: 0, max: 255);
-        final blue1 = context.knobs.slider(label: "Color Blue", initial: 255, min: 0, max: 255);
+        final red1 = context.knobs.slider(label: "Color Red", initial: 69, min: 0, max: 255);
+        final green1 = context.knobs.slider(label: "Color Green", initial: 218, min: 0, max: 255);
+        final blue1 = context.knobs.slider(label: "Color Blue", initial: 201, min: 0, max: 255);
 
         final shadow_color = Color.fromARGB(alpha1.toInt(), red1.toInt(), green1.toInt(), blue1.toInt());
 
         final size_w = context.knobs
             .sliderInt(
-            label: "width", initial: 100, min: 10, max: 400)
+            label: "width", initial: 200, min: 10, max: 400)
             .toDouble();
 
         final size_h = context.knobs
             .sliderInt(
-            label: "height", initial: 100, min: 10, max: 400)
+            label: "height", initial: 200, min: 10, max: 400)
             .toDouble();
 
         List<Widget> shapes = [
           GlowingWidget(
               shadowColor: shadow_color,
               size: Offset(size_w, size_h),
-              child: WeirdShapeWidget(
-                color: Colors.black87,
+              child: WeirdShape(
+                color: Colors.black,
                 size: Size(size_w, size_h),
               )
           ),
           GlowingWidget(
               shadowColor: shadow_color,
               size: Offset(size_w, size_h),
-              child: RoundWidget(
-                color: Colors.black87,
+              child: RoundShape(
+                color: Colors.black,
                 size: Size(size_w, size_h),
               )
           ),
           GlowingWidget(
               shadowColor: shadow_color,
               size: Offset(size_w, size_h),
-              child: TriangleWidget(
-                color: Colors.black87,
+              child: StarShape(
+                color: Colors.black,
+                size: Size(size_w, size_h),
+              )
+          ),
+          GlowingWidget(
+              shadowColor: shadow_color,
+              size: Offset(size_w, size_h),
+              child: DiamondShape(
+                color: Colors.black,
                 size: Size(size_w, size_h),
               )
           )
@@ -78,7 +86,7 @@ class StoryBookApp extends StatelessWidget {
                 mainAxisSpacing: 10,
               ),
               padding: EdgeInsets.all(10),
-              itemCount: 3,
+              itemCount: shapes.length,
               itemBuilder: (context, index) {
                 return Container(
                   decoration: BoxDecoration(
