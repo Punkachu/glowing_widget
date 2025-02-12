@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Glowing Widget',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.black87),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.grey.shade600),
         useMaterial3: true,
       ),
       home: StoryBookApp(),
