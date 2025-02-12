@@ -55,10 +55,9 @@ class _GlowingWidgetState extends State<GlowingWidget> {
                 onTap: () => widget.onTap != null ? widget.onTap!() : null,
                 overlayColor: MaterialStateProperty.all<Color>(Colors.transparent),
                 child: DropShadow(
-                  // blurRadius: 20,
+                  blurRadius: 10,
                   blurRadius2: value * 10,
                   opacity: value,
-                  //spread: value,
                   color: widget.shadowColor,
                   offset: const Offset(0, 0),
                   child: widget.child,
