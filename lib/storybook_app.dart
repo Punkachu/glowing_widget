@@ -73,7 +73,17 @@ class StoryBookApp extends StatelessWidget {
                 color: Colors.black,
                 size: Size(size_w, size_h),
               )
-          )
+          ),
+          GlowingWidget(
+              shadowColor: shadow_color,
+              size: Offset(size_w, size_h),
+              child: Center(child: Icon(Icons.add_alert, color: Colors.black, size: 100,))
+          ),
+          GlowingWidget(
+              shadowColor: shadow_color,
+              size: Offset(size_w, size_h),
+              child: Center(child: Icon(Icons.accessibility_sharp, color: Colors.black, size: 100,))
+          ),
         ];
 
         return Scaffold(
@@ -81,7 +91,7 @@ class StoryBookApp extends StatelessWidget {
           body: Center(
             child: GridView.builder(
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2, // columns nb
+                crossAxisCount: 3, // columns nb
                 crossAxisSpacing: 10, // rows
                 mainAxisSpacing: 10,
               ),
