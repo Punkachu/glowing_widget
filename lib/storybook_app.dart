@@ -23,7 +23,7 @@ class StoryBookApp extends StatelessWidget {
       name: "Glowing Triangle Button",
       description: '',
       builder: (BuildContext context) {
-        // Using sliders to define RGB values for two gradient colors
+        // Using sliders to define RGB values for the shadow color
         final alpha1 = context.knobs.slider(label: "Color Alpha", initial: 255, min: 0, max: 255);
         final red1 = context.knobs.slider(label: "Color Red", initial: 69, min: 0, max: 255);
         final green1 = context.knobs.slider(label: "Color Green", initial: 218, min: 0, max: 255);
@@ -31,58 +31,57 @@ class StoryBookApp extends StatelessWidget {
 
         final shadow_color = Color.fromARGB(alpha1.toInt(), red1.toInt(), green1.toInt(), blue1.toInt());
 
-        final size_w = context.knobs
+        final dimension = context.knobs
             .sliderInt(
-            label: "width", initial: 200, min: 10, max: 400)
+            label: "Dimension", initial: 230, min: 10, max: 400)
             .toDouble();
 
-        final size_h = context.knobs
-            .sliderInt(
-            label: "height", initial: 200, min: 10, max: 400)
-            .toDouble();
+        const Color iconColor = Colors.black;
 
         List<Widget> shapes = [
           GlowingWidget(
               shadowColor: shadow_color,
-              size: Offset(size_w, size_h),
+              blurRadius: 20,
+              size: Offset(dimension, dimension),
               child: WeirdShape(
-                color: Colors.black,
-                size: Size(size_w, size_h),
+                color: iconColor,
+                size: Size(dimension, dimension),
               )
           ),
           GlowingWidget(
               shadowColor: shadow_color,
-              size: Offset(size_w, size_h),
+              blurRadius: 20,
+              size: Offset(dimension, dimension),
               child: RoundShape(
-                color: Colors.black,
-                size: Size(size_w, size_h),
+                color: iconColor,
+                size: Size(dimension, dimension),
               )
           ),
           GlowingWidget(
               shadowColor: shadow_color,
-              size: Offset(size_w, size_h),
+              size: Offset(dimension, dimension),
               child: StarShape(
-                color: Colors.black,
-                size: Size(size_w, size_h),
+                color: iconColor,
+                size: Size(dimension, dimension),
               )
           ),
           GlowingWidget(
               shadowColor: shadow_color,
-              size: Offset(size_w, size_h),
+              size: Offset(dimension, dimension),
               child: DiamondShape(
-                color: Colors.black,
-                size: Size(size_w, size_h),
+                color: iconColor,
+                size: Size(dimension, dimension),
               )
           ),
           GlowingWidget(
               shadowColor: shadow_color,
-              size: Offset(size_w, size_h),
-              child: Center(child: Icon(Icons.add_alert, color: Colors.black, size: 100,))
+              size: Offset(dimension, dimension),
+              child: Center(child: Icon(Icons.add_alert, color: iconColor, size: dimension * 0.7,))
           ),
           GlowingWidget(
               shadowColor: shadow_color,
-              size: Offset(size_w, size_h),
-              child: Center(child: Icon(Icons.accessibility_sharp, color: Colors.black, size: 100,))
+              size: Offset(dimension, dimension),
+              child: Center(child: Icon(Icons.accessibility_sharp, color: iconColor, size: dimension * 0.7,))
           ),
         ];
 
